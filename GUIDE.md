@@ -410,8 +410,9 @@ plugins/verify_plan/           ← 计划验证工具
 
 ```
 opencode-surgery-kit/
+├── AGENTS.md                           ← 精简版规范（复制到全局目录）
 ├── GUIDE.md                            ← 本文件（完整操作指南）
-├── README.md                           ← 快速使用说明
+├── README.md                           ← 项目介绍
 ├── prompt-files/                       ← 12 个改好的 prompt 文件
 │   ├── default.txt
 │   ├── anthropic.txt
@@ -428,6 +429,16 @@ opencode-surgery-kit/
 ├── core-patches/                       ← 核心代码补丁
 │   ├── plan.ts                         ← plan_exit 三选项 + 计划预览
 │   └── plan-exit.txt                   ← 工具描述更新
+├── instructions/                       ← ECC 原始精华（参考用）
+│   ├── strategic-compact.md
+│   ├── verification-loop.md
+│   ├── coding-standards.md
+│   ├── tdd-workflow.md
+│   ├── api-design.md
+│   ├── frontend-patterns.md
+│   ├── backend-patterns.md
+│   ├── e2e-testing.md
+│   └── security-review.md
 └── plugins/                            ← 两个插件
     ├── mode_switch/                    ← /mode 模式切换
     │   ├── package.json
@@ -446,6 +457,72 @@ opencode-surgery-kit/
         ├── README.md
         └── src/index.js                ← 插件主文件
 ```
+
+---
+
+## 14 从 ECC 偷来的精华 Skills
+
+从 [ECC (Everything Claude Code)](https://github.com/anthropics/courses) 项目精选 9 个最有价值的 skills，去除了臃肿的框架依赖，只保留精华内容。
+
+### 精简版：AGENTS.md
+
+已将 9 个 skills 精简合并成一份 `AGENTS.md`，包含：
+
+| 模块 | 说明 |
+|------|------|
+| 验证循环 | Build → Type Check → Lint → Test，任何一步失败则修复 |
+| 代码质量 | 命名规范、不可变性、错误处理、并行执行 |
+| TDD 工作流 | 先写测试 → 实现 → 重构 |
+| 安全规范 | 密钥管理、输入验证、SQL注入防护、认证检查 |
+| API 设计 | RESTful 规范、统一响应格式、状态码 |
+| React 组件 | 函数组件、Hooks 模式、状态更新 |
+| 后端模式 | Repository 模式、数据库优化、避免N+1 |
+| E2E 测试 | Playwright POM 模式、测试结构 |
+| 测试规范 | AAA 模式、命名规范、覆盖率 |
+
+### AGENTS.md 安装
+
+```bash
+# 复制到全局目录（所有项目生效）
+mkdir -p %USERPROFILE%\.config\opencode
+copy AGENTS.md %USERPROFILE%\.config\opencode\AGENTS.md
+```
+
+重启 opencode 即可。
+
+### AGENTS.md 优先级
+
+OpenCode 加载 AGENTS.md 的顺序：
+
+1. 项目目录的 `AGENTS.md` — 项目级，最高优先级
+2. `~/.config/opencode/AGENTS.md` — 全局
+3. `~/.claude/CLAUDE.md` — 兼容 Claude Code
+
+项目级会覆盖全局。如果某个项目需要不同规范，在项目目录放一个自己的 AGENTS.md。
+
+### Prompt 组装链路
+
+```
+provider.txt → env → AGENTS.md → skills → user.system
+```
+
+AGENTS.md 在第三位，无法覆盖第一位的毒瘤指令（如 `one word answers are best`），但可以补充领域知识和行为规范。
+
+### 原始文件（参考用）
+
+`instructions/` 目录下的 9 个 .md 文件是 ECC 原始内容，包含详细代码示例：
+
+| 文件 | 来源 | 用途 |
+|------|------|------|
+| `strategic-compact.md` | ECC | 强制代码精简，减少 token 浪费 |
+| `verification-loop.md` | ECC | 验证循环：编写 → 测试 → 修复 → 重复 |
+| `coding-standards.md` | ECC | 编码规范 checklist（命名、格式、注释） |
+| `tdd-workflow.md` | ECC | TDD 工作流：红 → 绿 → 重构 |
+| `api-design.md` | ECC | RESTful API 设计模式（Supabase 风格） |
+| `frontend-patterns.md` | ECC | React/Next.js 组件模式、Hooks、性能优化 |
+| `backend-patterns.md` | ECC | Node.js 架构、数据库优化、中间件 |
+| `e2e-testing.md` | ECC | Playwright E2E 测试、POM 模式 |
+| `security-review.md` | ECC | 安全审查 checklist（SQL注入、XSS、认证） |
 
 ---
 
