@@ -428,6 +428,16 @@ opencode-surgery-kit/
 ├── core-patches/                       ← 核心代码补丁
 │   ├── plan.ts                         ← plan_exit 三选项 + 计划预览
 │   └── plan-exit.txt                   ← 工具描述更新
+├── instructions/                       ← 从 ECC 偷来的精华 skills
+│   ├── strategic-compact.md            ← 代码精简压缩指令
+│   ├── verification-loop.md            ← 验证循环强制机制
+│   ├── coding-standards.md             ← 编码规范 checklist
+│   ├── tdd-workflow.md                 ← TDD 工作流
+│   ├── api-design.md                   ← API 设计模式
+│   ├── frontend-patterns.md            ← React/Next.js 前端模式
+│   ├── backend-patterns.md             ← Node.js 后端模式
+│   ├── e2e-testing.md                  ← Playwright E2E 测试
+│   └── security-review.md              ← 安全审查 checklist
 └── plugins/                            ← 两个插件
     ├── mode_switch/                    ← /mode 模式切换
     │   ├── package.json
@@ -446,6 +456,34 @@ opencode-surgery-kit/
         ├── README.md
         └── src/index.js                ← 插件主文件
 ```
+
+---
+
+## 14 从 ECC 偷来的精华 Skills
+
+从 [ECC (Everything Claude Code)](https://github.com/anthropics/courses) 项目精选 9 个最有价值的 skills，去除了臃肿的框架依赖，只保留精华内容。
+
+### 使用方式
+
+将 `instructions/` 目录下的 .md 文件作为 OpenCode 的 AGENTS.md 内容使用。可以按需复制到你的项目根目录的 `AGENTS.md` 中，或直接作为参考文档。
+
+### 精华清单
+
+| 文件 | 来源 | 用途 |
+|------|------|------|
+| `strategic-compact.md` | ECC | 强制代码精简，减少 token 浪费 |
+| `verification-loop.md` | ECC | 验证循环：编写 → 测试 → 修复 → 重复 |
+| `coding-standards.md` | ECC | 编码规范 checklist（命名、格式、注释） |
+| `tdd-workflow.md` | ECC | TDD 工作流：红 → 绿 → 重构 |
+| `api-design.md` | ECC | RESTful API 设计模式（Supabase 风格） |
+| `frontend-patterns.md` | ECC | React/Next.js 组件模式、Hooks、性能优化 |
+| `backend-patterns.md` | ECC | Node.js 架构、数据库优化、中间件 |
+| `e2e-testing.md` | ECC | Playwright E2E 测试、POM 模式 |
+| `security-review.md` | ECC | 安全审查 checklist（SQL注入、XSS、认证） |
+
+### 与 OpenCode 内置 prompt 的关系
+
+这些 skills 补充了 prompt 替换无法覆盖的**领域知识**。prompt 替换解决的是 AI 行为模式（少说废话、自动验证），skills 解决的是技术规范（怎么写好 React 组件、怎么设计 API）。
 
 ---
 

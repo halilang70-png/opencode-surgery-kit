@@ -16,6 +16,16 @@ opencode-surgery-kit/
 ├── core-patches/                       ← 核心代码补丁
 │   ├── plan.ts                         ← plan_exit 三选项 + 计划预览
 │   └── plan-exit.txt                   ← 工具描述更新
+├── instructions/                       ← 从 ECC 偷来的精华 skills
+│   ├── strategic-compact.md            ← 代码精简压缩指令
+│   ├── verification-loop.md            ← 验证循环强制机制
+│   ├── coding-standards.md             ← 编码规范 checklist
+│   ├── tdd-workflow.md                 ← TDD 工作流
+│   ├── api-design.md                   ← API 设计模式
+│   ├── frontend-patterns.md            ← React/Next.js 前端模式
+│   ├── backend-patterns.md             ← Node.js 后端模式
+│   ├── e2e-testing.md                  ← Playwright E2E 测试
+│   └── security-review.md              ← 安全审查 checklist
 └── plugins/                            ← 两个插件
     ├── mode_switch/                    ← /mode 模式切换
     │   ├── src/index.js                ← 插件主文件
