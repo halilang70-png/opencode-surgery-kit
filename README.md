@@ -4,19 +4,25 @@ OpenCode 自定义编译所需的全部文件。
 
 ## 快速开始
 
-详细操作指南请查看 [GUIDE.md](GUIDE.md)
+```bash
+# 复制到项目目录
+copy AGENTS.md D:\你的项目目录\
+
+# 启动 opencode
+cd D:\你的项目目录
+opencode
+```
+
+OpenCode 会自动读取项目根目录的 `AGENTS.md`，AI 会遵循里面的规范。
 
 ## 目录结构
 
 ```
 opencode-surgery-kit/
+├── AGENTS.md                           ← 精简版规范（直接复制到项目用）
 ├── GUIDE.md                            ← 完整操作指南
 ├── README.md                           ← 本文件
-├── prompt-files/                       ← 12 个改好的 prompt 文件
-├── core-patches/                       ← 核心代码补丁
-│   ├── plan.ts                         ← plan_exit 三选项 + 计划预览
-│   └── plan-exit.txt                   ← 工具描述更新
-├── instructions/                       ← 从 ECC 偷来的精华 skills
+├── instructions/                       ← ECC 原始精华（参考用）
 │   ├── strategic-compact.md            ← 代码精简压缩指令
 │   ├── verification-loop.md            ← 验证循环强制机制
 │   ├── coding-standards.md             ← 编码规范 checklist
@@ -26,7 +32,7 @@ opencode-surgery-kit/
 │   ├── backend-patterns.md             ← Node.js 后端模式
 │   ├── e2e-testing.md                  ← Playwright E2E 测试
 │   └── security-review.md              ← 安全审查 checklist
-└── plugins/                            ← 两个插件
+└── plugins/                            ← 两个插件（可选）
     ├── mode_switch/                    ← /mode 模式切换
     │   ├── src/index.js                ← 插件主文件
     │   └── commands/                   ← 命令定义文件
@@ -34,68 +40,25 @@ opencode-surgery-kit/
         └── src/index.js                ← 插件主文件
 ```
 
-## 快速使用
+## AGENTS.md 说明
 
-### 1. 编译 OpenCode
+`AGENTS.md` 是从 ECC 9个精华 skills 精简合并而成的规范文件，包含：
 
+- 验证循环（Build → Type Check → Lint → Test）
+- 代码质量规范（命名、不可变性、错误处理）
+- TDD 工作流
+- 安全规范（密钥管理、输入验证、SQL注入防护）
+- API 设计模式
+- React 组件规范
+- 后端架构模式
+- E2E 测试模式
+- 测试规范
+
+**使用方法：**
 ```bash
-cd /path/to/opencode
-bun install
-cd packages/opencode
-bun run build --single
+# 复制到任意项目目录
+copy AGENTS.md D:\你的项目目录\
+
+# 或者追加到已有的 AGENTS.md
+type AGENTS.md >> D:\你的项目目录\AGENTS.md
 ```
-
-### 2. 应用改动
-
-**Prompt 文件：**
-```bash
-cp prompt-files/*.txt packages/opencode/src/session/prompt/
-```
-
-**核心代码补丁：**
-```bash
-cp core-patches/plan.ts packages/opencode/src/tool/
-cp core-patches/plan-exit.txt packages/opencode/src/tool/
-```
-
-**插件：**
-```bash
-# 创建全局插件目录
-mkdir -p ~/.config/opencode/plugins
-
-# 复制插件 JS 文件（直接放文件，不是目录）
-cp plugins/mode_switch/src/index.js ~/.config/opencode/plugins/mode_switch.js
-cp plugins/verify_plan/src/index.js ~/.config/opencode/plugins/verify_plan.js
-
-# 创建命令文件（让 /mode 等命令可用）
-mkdir -p ~/.config/opencode/commands
-cp plugins/mode_switch/commands/*.md ~/.config/opencode/commands/
-```
-
-### 3. 重新编译
-
-```bash
-cd packages/opencode
-bun run build --single
-```
-
-### 4. 替换 npm 全局二进制
-
-```bash
-# npm 全局安装路径（根据你的系统调整）
-# Windows:
-cp dist/opencode-windows-x64/bin/opencode.exe \
-   "$APPDATA/npm/node_modules/opencode-ai/bin/opencode.exe"
-# macOS/Linux:
-# cp dist/opencode-macos-arm64/bin/opencode \
-#    "$HOME/.local/share/npm/lib/node_modules/opencode-ai/bin/opencode"
-```
-
-## 上游更新后
-
-1. `git pull` 拉取最新源码
-2. 检查 `core-patches/` 中的文件是否有上游冲突
-3. 重新覆盖 `prompt-files/*.txt`
-4. 重新编译
-
-详细流程见 `GUIDE.md`。
