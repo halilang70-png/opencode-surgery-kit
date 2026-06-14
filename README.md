@@ -24,7 +24,7 @@ OpenCode 的内置提示词有毒瘤：
 
 ## AGENTS.md 是什么
 
-从 ECC (Everything Claude Code) 偷来 9 个精华 skills，精简合并成一份规范文件，让 AI 自动遵循好习惯：
+从 ECC (Everything Claude Code) 提炼 9 个精华 skills，精简合并成一份规范文件，让 AI 自动遵循好习惯：
 
 验证循环、代码质量、TDD、安全、API 设计、React 组件、后端模式、E2E 测试、测试规范
 
